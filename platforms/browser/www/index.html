@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>JOHAN RAMOS </title>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">JOHAN RAMOS</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+
+    <div class="container">
+        <div class="container">
+                <div class="row">
+                        <div class="col">
+                                <button class="btn btn-primary" onclick="javascript:leerMock(2);" type="button">Modal</button>
+                        </div>
+                        <div class="col">
+                                <button class="btn btn-secondary" onclick="javascript:leerMock(1);" type="button">Servicio</button>
+                        </div>
+                        <div class="col">
+                                <button class="btn btn-success" onclick="javascript:mostrarContactos();" type="button">Contactos</button>
+                        </div>
+                      </div>
+                      <div class="row">
+                            <div class="col">
+                                <button class="btn btn-danger" onclick="javascript:checkConnection();" type="button">Conexion</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-warning" onclick="javascript:camara();" type="button">Camara</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-info" onclick="javascript:EjecutarVibracion();" type="button">Zumbido</button>
+                            </div>
+                          </div>
+                        </div>
+      
+               
+    
+
+               
+            
+                
+                 
+                  
+      
+              
+
+          </div>
+        </div>
+        <!-- resultados -->
+        <input class="form-control mr-sm-2"  id="myInput" type="search" placeholder="Search" aria-label="Search">
+        <div id="result">
+        
+        </div>
+        <table id="tableContactos">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Telefono</td>
+                </tr>
+            </table>
+        
+
+        
+        <!-- Modal -->
+      <div class="modal fade bottom" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+            <div class="modal-dialog modal-frame modal-bottom" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <p class="pt-3 pr-2">Datos encontrados</p>
+                            <br>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+            $(document).ready(function(){
+              $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+            </script>
+            <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+            </style>
+            </head>
+            <body>
+            
+
+        
+    
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+//*******FUNCION DE LA LISTA  PHP *************
+        function leerMock(option) {
+            if (option == 1) {
+                $.ajax({
+                    type: "GET",
+                    url: "http://www.programa2.net/univalle/obtener_alumnos.php",
+                    crossDomain: true,
+                    cache: false,
+                    success: function (result) {
+                        var table = document.getElementById("tablaphp");
+                        var filas = 0;
+                        var fila = false;
+                        var columna = false;
+                        var columnas = 0;
+                        var bloque = "";
+                        var ide = "";
+                        var nombre = "";
+                        var direccion = "";
+                        var corchete = false;
+                        var llavei = false;
+                        var llavef = false;
+                        var lafila = "";
+                        var contitem = 0;
+                        var idefinal = "";
+                        var nombrefinal = "";
+                        var direccionfinal = "";
+
+                        var htmlResult = "<table id='myTable' class='table' border='1' id='resultado'>";
+                        htmlResult += "<tr>";
+                        htmlResult += "<th>ID</th>";
+                        htmlResult += "<th>NOMBRE</th>";
+                        htmlResult += "<th>DIRECCIÓN</th>";
+                        htmlResult += "</tr>";
+
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i] == '[') {
+                                corchete = true;
+                            }
+                            if (result[i] == ']') {
+                                corchete = false;
+                            }
+                            if (corchete == true) {
+                                bloque += result[i];
+                            }
+                        }
+                        for (var j = 0; j < bloque.length; j++) {
+                            if (bloque[j] == '{') {
+                                llavei = true;
+                            }
+                            if (bloque[j] == '}') {
+                                llavef = true;
+                            }
+                            if (llavei == true) {
+                                lafila += bloque[j];
+                            }
+                            if (llavef == true) {
+                                filas += 1;
+                                htmlResult += "<tr>";
+                                for (var x = 0; x <
+                                    lafila.length; x++) {
+                                    if (lafila[x] == ":" || lafila[x] == ",") {
+                                        contitem += 1;
+                                    }
+                                    if (lafila[x] == "}") {
+                                        contitem = 0;
+                                    }
+                                    if (contitem == 1) {
+                                        ide += lafila[x];
+                                    }
+                                    if (contitem == 3) {
+                                        nombre += lafila[x];
+                                    }
+                                    if (contitem == 5) {
+                                        direccion += lafila[x];
+                                    }
+                                }
+                                for (var a = 2; a < ide.length - 1; a++) {
+                                    idefinal += ide[a];
+                                }
+                                for (var a = 2; a < nombre.length - 1; a++) {
+                                    nombrefinal += nombre[a];
+                                }
+                                for (var a = 2; a < direccion.length - 1; a++) {
+                                    direccionfinal += direccion[a];
+                                }
+                                htmlResult += "<td>" + idefinal + "</td>";
+                                htmlResult += "<td>" +
+                                    nombrefinal + "</td>";
+                                htmlResult += "<td>" + direccionfinal + "</td>";
+                                lafila = "";
+                                ide = "";
+                                nombre = "";
+                                direccion = "";
+                                idefinal = "";
+                                nombrefinal = "";
+                                direccionfinal = "";
+                                llavef = false;
+                                llavei = false;
+                                htmlResult += "</tr>";
+                                document.getElementById('result').innerHTML = htmlResult;
+                            }
+                        }
+                        htmlResult += "</table>";
+                    },
+                    error: function (result) {
+                        alert("error");
+                    }
+                });
+            }else if (option == 2) {
+                $('#myModal').modal()
+            }
+        }
+//*****************************************
+//*******FUNCION DE LA CAMARA *************
+        function camara() {
+    navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+    destinationType: Camera.DestinationType.FILE_URI });
+
+
+        }
+
+
+        function onSuccess(imageURI) {
+            var image = document.getElementById('myImage');
+                image.src = imageURI;
+        }
+        
+        function onFail(message) {
+            alert('Failed because: ' + message);
+        
+        }
+//*************************************************
+//*******FUNCION DE LA ZUMBIDO *************        
+ function EjecutarVibracion() {
+       navigator.vibrate(3000)
+     
+    }
+//*************************************************
+        
+        function mostrarContactos(){
+            var options = new ContactFindOptions();
+            options.filter   = "DN";
+            options.multiple = true;
+            //options.desiredFields = [navigator.contacts.fieldType.id];
+            options.hasPhoneNumber = true;
+            filter = ["displayName"]; 
+            //var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+            //BUSCAR CONTACTOS
+            navigator.contacts.find(filter, onSuccess, onError, options);
+        }
+        function onSuccess(contacts) {
+            for (var i=0; i<contacts.length; i++) {
+            alert(contacts[i].displayName);
+            var table = document.getElementById("tableContactos");
+            for (var i = 0; i <= contacts.length; i++){
+               var row = table.insertRow(0);
+               var cell1 = table.insertCell(0);
+               var cell2 = table.insertCell(1);
+               cell1.innerHTML = contacts[i].displayName;
+               cell2.innerHTML = contacts[i].phoneNumbers[0];
+            }
+        };
+    }
+        
+        function onError(contacError) {
+            alert('error con los contactos');
+        }
+        
+       function checkConnection() {
+            var networkState = navigator.connection.type;
+
+            var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.CELL]     = 'Cell generic connection';
+            states[Connection.NONE]     = 'No network connection';
+
+            alert('Connection type: ' + states[networkState]);
+        }
+    </script>
+</body>
+
+</html>
